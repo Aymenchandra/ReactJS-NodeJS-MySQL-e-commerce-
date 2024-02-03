@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class Addpr extends Component {
+    
     constructor(props) {
         super(props);
+        var file = '';
         this.state = {
             prname: '',
             prcategory: '',
@@ -20,27 +22,46 @@ class Addpr extends Component {
         };
     }
 
+    handleImageChange = (event) => {
+        event.preventDefault();
+        this.file = event.target.files[0];
+        
+        this.setState({
+            imageUrl:event.target.value
+        })
+    }
+
     handleSubmit = async (event) => {
         event.preventDefault();
-        const product = {
-            title: this.state.prname,
-            imageUrl: this.state.imageUrl,
-            Price: this.state.prprice,
-            Desc: this.state.prdesc,
-            category: this.state.prcategory
-        }
 
-        await axios({
-            method: 'post',
-            url: 'http://localhost:4000/addProduct',
-            data: product,
-            'Content-Type': 'application/json'
+        const form = new FormData()
+        form.append('file', this.file);
+        form.append('upload_preset', 'lkffra40');
+        axios.post("https://api.cloudinary.com/v1_1/dcscoeeoo/image/upload",form)
+        .then(async (result)=>{
+            const product = {
+                title: this.state.prname,
+                imageUrl: result.data.secure_url,
+                Price: this.state.prprice,
+                Desc: this.state.prdesc,
+                category: this.state.prcategory
+            }
+            await axios({
+                method: 'post',
+                url: 'http://localhost:4000/addProduct',
+                data: product,
+                'Content-Type': 'application/json'
+            })
+            this.setState({
+                prname: '',
+                prcategory: '',
+                prdesc: '',
+                prprice: '',
+                imageUrl:''
+            });
         })
-        this.setState({
-            prname: '',
-            prcategory: '',
-            prdesc: '',
-            prprice: ''
+        .catch((error) => {
+            console.error("Error uploading image:", error);
         });
     }
 
@@ -121,21 +142,6 @@ class Addpr extends Component {
                             )}
                         </div>
                         <div className="prdesc">
-                            <label htmlFor="imageUrl">Product Image</label>
-                            <input
-                                className={formErrors.imageUrl.length > 0 ? "error" : null}
-                                placeholder="Product Image Url"
-                                type="text"
-                                value={this.state.imageUrl}
-                                name="imageUrl"
-                                noValidate
-                                onChange={this.handleChange}
-                            />
-                            {formErrors.imageUrl.length > 0 && (
-                                <span className="errorMessage">{formErrors.imageUrl}</span>
-                            )}
-                        </div>
-                        <div className="prdesc">
                             <label htmlFor="prdesc">Product Description</label>
                             <input
                                 className={formErrors.prdesc.length > 0 ? "error" : null}
@@ -165,6 +171,22 @@ class Addpr extends Component {
                                 <span className="errorMessage">{formErrors.prprice}</span>
                             )}
                         </div>
+                        <div className="prdesc">
+                        <label htmlFor="imageUrl">Product Image</label>
+                            <input
+                                className={formErrors.imageUrl.length > 0 ? "error" : null}
+                                placeholder="Product Image Url"
+                                type="file"
+                                value={this.state.imageUrl}
+                                name="imageUrl"
+                                noValidate
+                                onChange={this.handleImageChange}
+                            />
+                            {formErrors.imageUrl.length > 0 && (
+                                <span className="errorMessage">{formErrors.imageUrl}</span>
+                            )}
+                        </div>
+                        
                         <div className="createAccount">
                             <button type="submit">Add Product</button>
                         </div>
