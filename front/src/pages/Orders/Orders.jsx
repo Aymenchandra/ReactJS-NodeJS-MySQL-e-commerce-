@@ -12,7 +12,13 @@ class Orders extends Component {
     }
 
     getOrders = async () => {
-        const res = await axios.get(`http://localhost:4000/getOrders?id=${this.props.userinfo.userId}`);
+        if(this.props.userinfo.isAdmin){
+            var res = await axios.get(`http://localhost:4000/getOrders`);
+        }
+        else{
+            var res = await axios.get(`http://localhost:4000/getOrdersById?id=${this.props.userinfo.userId}`);
+        }
+        console.log(res.data)
         this.setState({
             orders: res.data
         });
@@ -25,9 +31,9 @@ class Orders extends Component {
         let ordersList = this.state.orders.map(order => {
             return (
                 <div className="order-item" key={order.id}>
-                    <h2 className="order-exp">Your Order ID Is - {order.id}</h2>
-                    <h2 className="order-exp">Your Date Of Order Is - {order.updatedAt.substring(0,10)}</h2>
-                    <h2 className = "order-exp">Your Ordered Items Are:</h2>
+                    <h2 className="order-exp">Order ID Is - {order.id}</h2>
+                    <h2 className="order-exp">Date Of Order Is - {order.updatedAt.substring(0,10)}</h2>
+                    <h2 className = "order-exp">Ordered Items Are:</h2>
                     {
                         order.products.map(product => {
                             return (
@@ -39,7 +45,7 @@ class Orders extends Component {
                                     <p className = "order-p">Ordered Item Quantitiy:</p>
                                     <li>{product.orderItem.quantity}</li>
                                     <p className  = "order-p">Ordered Item Price:</p>
-                                    <li>{product.price}</li>
+                                    <li>{product.price} TND</li>
                                     </div>
                                 </div>
                             )

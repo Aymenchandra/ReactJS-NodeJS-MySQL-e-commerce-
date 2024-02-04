@@ -34,7 +34,7 @@ class ProductView extends Component {
                         <button
                             className="addbtn"
                             onClick={(e) => this.handleClick(e, this.props.product.id)}
-                        > <div id="slide"></div>Add To Cart
+                        > Add To Cart
                         </button>
 
                         <button className="continue" onClick={this.goBack}>Continue Shopping</button>

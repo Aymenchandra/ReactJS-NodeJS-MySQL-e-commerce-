@@ -11,37 +11,31 @@ class Category extends Component {
         event.preventDefault();
         const res = await axios.get('http://localhost:4000/getElectronics');
         this.props.updateProd(res.data);
-        this.props.updateSliderPos('electronics');
         this.props.history.push('/products')
     }
     getBooks = async () => {
         const res = await axios.get('http://localhost:4000/getBooks');
         this.props.updateProd(res.data);
-        this.props.updateSliderPos('books');
         this.props.history.push('/products')
     }
     getKids = async () => {
         const res = await axios.get('http://localhost:4000/getKids');
         this.props.updateProd(res.data);
-        this.props.updateSliderPos('kids');
         this.props.history.push('/products')
     }
     getApparels = async () => {
         const res = await axios.get('http://localhost:4000/getApparels');
         this.props.updateProd(res.data);
-        this.props.updateSliderPos('apparels');
         this.props.history.push('/products')
     }
     getHomeandfurniture = async () => {
         const res = await axios.get('http://localhost:4000/getHomeandfurniture');
         this.props.updateProd(res.data);
-        this.props.updateSliderPos('homeandfurniture');
         this.props.history.push('/products')
     }
     getFootwear = async () => {
         const res = await axios.get('http://localhost:4000/getFootwear');
         this.props.updateProd(res.data);
-        this.props.updateSliderPos('footwear');
         this.props.history.push('/products')
     }
 

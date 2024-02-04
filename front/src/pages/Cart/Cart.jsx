@@ -38,19 +38,19 @@ class Cart extends Component {
     }
 
     async handleToken(token, price) {
-        // const price = this.state.price;
         const res = await axios.post(
             "http://localhost:4000/checkout",
             { token, price }
         );
         if (res.data.status === "success") {
             toast("Success! Check email for details", { type: "success" });
-            this.props.history.push('/');
+            this.props.history.push('/category');
             await axios.post('http://localhost:4000/place-order', {
                 "userId": this.props.userinfo.userId
             });
         } else {
             toast("Something went wrong, Try again Later", { type: "error" });
+            console.error()
         }
     }
 
@@ -129,7 +129,7 @@ class Cart extends Component {
                     <StripeCheckout
                         className="checkout"
                         stripeKey="pk_test_51Gxt4GIY3uMkMao1o5wDkMtWsbEu4UgosWpYL5qFDXZUTZruG24dCGMPgID56kw8m8pPMRcaF7uISBAbfaGBCqal00Mcuc0lWq"
-                        token={(token) => this.handleToken(sum > 100 ? (sum - (sum * 0.25))* 100 : sum * 100)}
+                        token={(token) => this.handleToken(token,sum > 100 ? (sum - (sum * 0.25))* 100 : sum * 100)}
                         amount={sum > 100 ? (sum - (sum * 0.25))* 100 : sum * 100}
                         name="Payment Using Card"
                     />

@@ -51,53 +51,7 @@ class Products extends Component {
         this.props.history.push('/')
     }
 
-    // Slider Functions
-    componentDidMount() {
-        this.interval = setInterval(this.autoplay(), 4000);
-    }
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-    autoplay = () => {
-        this.goToNextSlide();
-    }
-    goToPrevSlide = () => {
-        let index = this.state.activeIndex;
-        let length = this.state.length;
-        if (index < 1) {
-            index = length - 1;
-        }
-        else {
-            index--;
-        }
-        this.setState({
-            ...this.state,
-            activeIndex: index
-        });
-        clearInterval(this.interval);
-        this.interval = setInterval(this.autoplay, 4000);
-    }
-    goToNextSlide = () => {
-        let index = this.state.activeIndex;
-        let length = this.state.length;
-        // console.log(index);
-        // console.log(length);
-        if (index === length - 1) {
-            index = 0
-        } else {
-            index++;
-        }
-        this.setState({
-            ...this.state,
-            activeIndex: index
-        });
-        clearInterval(this.interval);
-        this.interval = setInterval(this.autoplay, 4000);
-    }
-    setLength = len => {
-        this.setState({ length: len });
-    }
-
+    
     render() {
         let itemList = this.props.products.map(item => {
             return (

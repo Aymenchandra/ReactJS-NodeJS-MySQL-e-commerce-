@@ -37,9 +37,9 @@ app.post("/checkout", async (req, res) => {
         currency: "usd",
         customer: customer.id,
         receipt_email: token.email,
-        description: `Purchased the by Aman Shop`,
+        description: `Online shop`,
         shipping: {
-          name: 'Jenny Rosen',
+          name: 'First name , Last name ',
           address: {
             line1: '510 Townsend St',
             postal_code: '98140',
@@ -95,20 +95,34 @@ app.use('/getProfile', (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.use('/getOrders', (req, res) => {
+app.use('/getOrdersById', (req, res) => {
   const id = req.query.id;
-  // console.log(id, typeof id);
   User.findByPk(id)
     .then(user => {
       return user.getOrders({include: ['products']});
     })
     .then(orders => {
-      // console.log(orders);
       res.send(orders);
     })
     .catch(err => console.log(err));
 });
 
+app.use('/getOrders', (req, res) => {
+  // Fetch all users
+  User.findAll()
+    .then(users => {
+      const orderPromises = [];
+      users.forEach(user => {
+        orderPromises.push(user.getOrders({ include: ['products'] }));
+      });
+      return Promise.all(orderPromises);
+    })
+    .then(allOrders => {
+      const orders = allOrders.flat();
+      res.send(orders);
+    })
+    .catch(err => console.log(err));
+});
 
 app.use('/getElectronics', (req, res) => {
   Product.findAll({ where: { category: 'electronics' } })
@@ -183,7 +197,7 @@ app.use('/place-order', (req, res) => {
       return fetchedCart.setProducts(null);
     })
     .then(result => {
-      res.redirect('/orders');
+    
     })
     .catch(err => console.log(err));
 });

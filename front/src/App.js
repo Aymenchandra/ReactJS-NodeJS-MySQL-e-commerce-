@@ -25,7 +25,6 @@ class App extends React.Component {
                 isAdmin: false,
             },
             products: [],
-            slider: '',
             product: null
         };
     }
@@ -172,9 +171,6 @@ class App extends React.Component {
     updateSingleProduct = prod => {
         this.setState({ product: prod });
     }
-    updateSliderPos = pos => {
-        this.setState({ slider: pos });
-    }
 
     render() {
         // If not Logged in
@@ -215,7 +211,6 @@ class App extends React.Component {
                                 logout={this.logoutHandler}
                                 userinfo={this.state.userinfo}
                                 updateProd={this.updateProducts}
-                                updateSliderPos={this.updateSliderPos}
                             />
                         )}
                     />
@@ -247,7 +242,6 @@ class App extends React.Component {
                                 logout={this.logoutHandler}
                                 products={this.state.products}
                                 userinfo={this.state.userinfo}
-                                slider={this.state.slider}
                                 updateSingleProduct={this.updateSingleProduct}
                             />
                         )}
