@@ -49,6 +49,7 @@ ReactJS on client side
 NodeJS for Rest API
 Sequelize ORM for MySQL database
 Stripe for Payment
+upload file to cloudinary
 ```
 
 
