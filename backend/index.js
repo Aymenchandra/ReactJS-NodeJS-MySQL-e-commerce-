@@ -11,6 +11,7 @@ const uuid = require("uuid/v4");
 const sequelize = require('./database');
 const User = require('./models/user');
 const Product = require('./models/product');
+const Category = require('./models/category');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
 const Order = require('./models/order');
@@ -66,14 +67,13 @@ app.post("/checkout", async (req, res) => {
 
 // Will be moved in routes later
 app.use('/addProduct', (req, res, next) => {
-  let { title, imageUrl, Price, Desc, category } = req.body;
+  let { title, imageUrl, Price, Desc, categoryId } = req.body;
   // console.log(req.body)
-  if (!imageUrl) imageUrl = "https://www.warnersstellian.com/Content/images/product_image_not_available.png";
   Product.create({
     title: title,
     imageUrl: imageUrl,
     price: Price,
-    category: category,
+    categoryId: categoryId,
     description: Desc
   })
     .then(result => {
@@ -84,6 +84,31 @@ app.use('/addProduct', (req, res, next) => {
     })
   res.status(201).send(title);
 })
+
+app.use('/addCategory', (req, res, next) => {
+  let { name, urlImage } = req.body;
+  // console.log(req.body)
+  Category.create({
+    name: name,
+    urlImage: urlImage,
+  })
+    .then(result => {
+      // console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  res.status(201).send(name);
+})
+
+app.use('/getAllCategories', (req, res, next) => {
+  Category.findAll()
+    .then(category => {
+      res.send(category);
+    })
+    .catch(err => console.log(err));
+})
+
 
 app.use('/getProfile', (req, res) => {
   const id = req.query.id;
@@ -99,7 +124,7 @@ app.use('/getOrdersById', (req, res) => {
   const id = req.query.id;
   User.findByPk(id)
     .then(user => {
-      return user.getOrders({include: ['products']});
+      return user.getOrders({ include: ['products'] });
     })
     .then(orders => {
       res.send(orders);
@@ -124,47 +149,20 @@ app.use('/getOrders', (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.use('/getElectronics', (req, res) => {
-  Product.findAll({ where: { category: 'electronics' } })
-    .then(product => {
-      res.send(product);
-    })
-    .catch(err => console.log(err));
-});
-app.use('/getBooks', (req, res) => {
-  Product.findAll({ where: { category: 'books' } })
-    .then(product => {
-      res.send(product);
-    })
-    .catch(err => console.log(err));
-});
-app.use('/getKids', (req, res) => {
-  Product.findAll({ where: { category: 'kids' } })
-    .then(product => {
-      res.send(product);
-    })
-    .catch(err => console.log(err));
-});
-app.use('/getApparels', (req, res) => {
-  Product.findAll({ where: { category: 'Apparels' } })
-    .then(product => {
-      res.send(product);
-    })
-    .catch(err => console.log(err));
-});
-app.use('/getHomeandfurniture', (req, res) => {
-  Product.findAll({ where: { category: 'homeandfurniture' } })
-    .then(product => {
-      res.send(product);
-    })
-    .catch(err => console.log(err));
-});
-app.use('/getFootwear', (req, res) => {
-  Product.findAll({ where: { category: 'footwear' } })
-    .then(product => {
-      res.send(product);
-    })
-    .catch(err => console.log(err));
+app.use('/findByCategorieName', (req, res) => {
+  let Queryname = req.query.name
+  Product.findAll({
+    include: [{
+      model: Category,
+      where: { name: Queryname }
+    }]
+  })
+  .then(products => {
+    res.send(products)
+  })
+  .catch(error => {
+    console.error("Error occurred while finding products:", error);
+  });
 });
 
 app.use('/place-order', (req, res) => {
@@ -197,7 +195,7 @@ app.use('/place-order', (req, res) => {
       return fetchedCart.setProducts(null);
     })
     .then(result => {
-    
+
     })
     .catch(err => console.log(err));
 });
@@ -367,15 +365,17 @@ app.use('/deleteUser', (req, res) => {
     .catch(err => console.log(err));
 });
 
-Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 User.hasMany(Product);
 User.hasOne(Cart);
+User.hasMany(Order);
+Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+Product.belongsToMany(Cart, { through: CartItem });
+Product.belongsTo(Category);
 Cart.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 Cart.belongsToMany(Product, { through: CartItem });
-Product.belongsToMany(Cart, { through: CartItem });
 Order.belongsTo(User);
-User.hasMany(Order);
 Order.belongsToMany(Product, { through: OrderItem });
+Category.hasMany(Product);
 
 sequelize
   .sync({ force: true })

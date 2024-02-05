@@ -51,47 +51,53 @@ class Products extends Component {
         this.props.history.push('/')
     }
 
-    
+
     render() {
         let itemList = this.props.products.map(item => {
             return (
-                <li className="cards_item" key={item.id}>
-                    <div className="card">
-                        <div className="card_image">
-                            <img src={item.imageUrl} className="prod-img" alt={item.title} /></div>
-                        <div className="card_content">
-                            <h2 className="card_title">{item.title}</h2>
-                            <p className="card_text">{item.desc}</p>
-                            <p className="price">Price: <span>TND </span>{item.price}</p>
-                            <button
-                                className="prbtn card_btn"
-                                onClick={(e) => this.handleRead(e, item)}
-                            >Read More
-                            </button>
-                            {
-                                this.props.userinfo.isAdmin
-                                &&
-                                <NavLink exact to="/cart" className="td-none">
-                                    <button
-                                        className="prbtn card_btn"
-                                        onClick={(e) => this.handleDelete(e, item.id)}
-                                    >Delete Product</button>
-                                </NavLink>
-                            }
+                <>
+                    <div className="card none-cursor" key={item.id}>
+                        <img src={item.imageUrl} className="card-image" alt={item.title} height="200" />
+                        <div className="card-content">
+                            <div className="card-title">
+                                <h4>{item.title}</h4>
+                                <h3>Price: <span>TND </span>{item.price}</h3>
+                                <button
+                                    className="prbtn card_btn"
+                                    onClick={(e) => this.handleRead(e, item)}
+                                >Read More
+                                </button>
+                                {this.props.userinfo.isAdmin
+                                    &&
+                                    <NavLink exact to="/cart" className="td-none">
+                                        <button
+                                            className="prbtn card_btn"
+                                            onClick={(e) => this.handleDelete(e, item.id)}
+                                        >Delete Product</button>
+                                    </NavLink>}
 
-                            {
-                                !this.props.userinfo.isAdmin
-                                &&
-                                <NavLink exact to="/cart" className="td-none">
-                                    <button
-                                        className="prbtn card_btn"
-                                        onClick={(e) => this.handleClick(e, item.id)}
-                                    >Add to Cart</button>
-                                </NavLink>
-                            }
+                                {!this.props.userinfo.isAdmin
+                                    &&
+                                    <NavLink exact to="/cart" className="td-none">
+                                        <button
+                                            className="prbtn card_btn"
+                                            onClick={(e) => this.handleClick(e, item.id)}
+                                        >Add to Cart</button>
+                                    </NavLink>}
+                            </div>
                         </div>
                     </div>
-                </li>
+                    {/* <li className="cards_item" key={item.id}>
+                        <div className="card">
+                            <div className="card_image">
+                                </div>
+                            <div className="card_content">
+                                
+                                
+                            </div>
+                        </div>
+                    </li> */}
+                    </>
             )
         })
 
@@ -99,7 +105,7 @@ class Products extends Component {
             <div>
                 <Header logout={this.props.logout} userinfo={this.props.userinfo} />
                 <h1 className="center">Products</h1>
-                <ul className="cards">
+                <ul className="card-container">
                     {itemList}
                 </ul>
             </div>

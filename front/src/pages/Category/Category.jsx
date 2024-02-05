@@ -6,68 +6,67 @@ import Header from '../../components/Header/Header';
 import './Category.css';
 
 class Category extends Component {
-
-    getElectronics = async (event) => {
+    
+    // const res = await axios.get('http://localhost:4000/findByCategorieName?name=');
+    getName = async (categoryName,event) => {
+        // const res = await axios.get(`http://localhost:4000/findByCategorieName?name=${categoryName}`);
+        // this.props.history.push('/products')
+        
         event.preventDefault();
-        const res = await axios.get('http://localhost:4000/getElectronics');
-        this.props.updateProd(res.data);
-        this.props.history.push('/products')
+        try {
+            const res = await axios.get(`http://localhost:4000/findByCategorieName?name=${categoryName}`);
+            this.props.updateProd(res.data);
+            console.log(res);
+            this.props.history.push('/products');
+        } catch (error) {
+            console.error('Error fetching products by category name:', error);
+        }
     }
-    getBooks = async () => {
-        const res = await axios.get('http://localhost:4000/getBooks');
-        this.props.updateProd(res.data);
-        this.props.history.push('/products')
-    }
-    getKids = async () => {
-        const res = await axios.get('http://localhost:4000/getKids');
-        this.props.updateProd(res.data);
-        this.props.history.push('/products')
-    }
-    getApparels = async () => {
-        const res = await axios.get('http://localhost:4000/getApparels');
-        this.props.updateProd(res.data);
-        this.props.history.push('/products')
-    }
-    getHomeandfurniture = async () => {
-        const res = await axios.get('http://localhost:4000/getHomeandfurniture');
-        this.props.updateProd(res.data);
-        this.props.history.push('/products')
-    }
-    getFootwear = async () => {
-        const res = await axios.get('http://localhost:4000/getFootwear');
-        this.props.updateProd(res.data);
-        this.props.history.push('/products')
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            categories: []
+        }
     }
 
-
+    getCategories = async () => {
+        var res = await axios.get(`http://localhost:4000/getAllCategories`);
+        console.log(res.data)
+        this.setState({
+            categories: res.data
+        });
+    }
+    componentWillMount() {
+        this.getCategories();
+    }
     render() {
+        let categoriesList = this.state.categories.map(category => {
+            return (
+                <>
+                    <div className="card" onClick={(event) => this.getName(category.name,event)} key={category.id}>
+                        <img className="card-image" src={category.urlImage} height="50" alt="Card Image"/>
+                        <div className="card-content">
+                            <div className="card-title">
+                                <h3 className="text">{category.name}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )
+        })
+        
         return (
             <div>
             <Header logout={this.props.logout} userinfo={this.props.userinfo}/>
                 <h1>Categories</h1>
-                <section className="category" id="category">
-                    <div className="item1">
-                        <button className="btn" onClick={this.getElectronics}>More</button>
-                    </div>
-                    <div className="item2">
-                        <button className="btn" onClick={this.getBooks}>More</button>
-                    </div>
-                    <div className="item3">
-                        <button className="btn" onClick={this.getApparels}>More</button>
-                    </div>
-                    <div className="item4">
-                        <button className="btn" onClick={this.getKids}>More</button>
-                    </div>
-                    <div className="item5">
-                        <button className="btn" onClick={this.getHomeandfurniture}>Shop Now</button>
-                    </div>
-                    {<div className="item6">
-                        <button className="btn" onClick={this.getFootwear}>Shop Now</button>
-                    </div>}
-                </section>
+                <div className="card-container">
+                    {categoriesList}
+                </div>
             </div>
-        );
-    }
+                
+            );
+        }
 }
 
 export default withRouter(Category);

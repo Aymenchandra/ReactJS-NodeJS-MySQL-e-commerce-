@@ -62,31 +62,6 @@ body {
   }
 }
 
-.home .controls .prev,
-.home .controls .next {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  height: 40px;
-  width: 40px;
-  margin-top: -20px;
-  text-align: center;
-  line-height: 40px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-.home .controls .prev:hover,
-.home .controls .next:hover {
-  transform: scale(2);
-}
-.home .controls .prev {
-  left: 0;
-}
-.home .controls .next {
-  right: 0;
-}
-
 .home .indicator {
   position: absolute;
   left: 50%;

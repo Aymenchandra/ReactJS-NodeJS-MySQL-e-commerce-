@@ -1,37 +1,62 @@
-.item1 {
-  background: url("https://t4.ftcdn.net/jpg/03/64/41/07/360_F_364410756_Ev3WoDfNyxO9c9n4tYIsU5YBQWAP3UF8.jpg");
-  background-size: contain;
-}
-.item2 {
-  background: url("https://i.ebayimg.com/images/g/WmAAAOSwvstitzHr/s-l1200.jpg");
-  background-size: contain;
-}
-.item3 {
-  background: url("https://t4.ftcdn.net/jpg/05/96/62/65/360_F_596626503_jrzjZNYStDexiWxQFqO7oCh6M8PdMlJs.jpg");
-  background-size: contain;
-}
-.item4 {
-  background: url("https://cdn2.momjunction.com/wp-content/uploads/2015/08/21EnjoyableIndoorGamesForKids-1-624x702.jpg");
-  background-size: contain;
-}
-.item5 {
-  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPGSA6jkCQWYbKDgoM520SENukL4hZ9lJYeQ&usqp=CAU");
-  background-size: contain;
-}
-.item6 {
-  background: url("https://www.gosanangelo.com/gcdn/presto/2021/12/16/PSAT/965f9a4f-7367-41a4-9aff-0a6651beb3ff-IMG_0763.jpg?width=1200&disable=upscale&format=pjpg&auto=webp");
-  background-size: contain;
+/* Card Content */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  justify-content: space-around;
+  padding: 20px;
 }
 
-.category {
+@media (min-width: 768px) {
+  .card-container {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  background: none;
+}
+
+.card .card-image {
+  width: 100%;
+  min-height: 230px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card .text {
+  font-style: normal;
+  line-height: 26px;
+}
+
+.card span {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 22px;
+}
+/* End:Card Content */
+
+/* .category {
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
+  align-content: center;
   justify-content: space-between;
-  /* height: 646px; */
+  height: 646px;
   border: 2px solid #fff;
-}
-.category div {
+} 
+*/
+/* .category div {
   margin: 1%;
   border: 2px solid black;
   height: 322px;
@@ -40,10 +65,10 @@
   justify-content: flex-end;
   align-items: flex-end;
   transition: all 0.4s ease-in-out;
-  /* background-repeat: no-repeat;
-  background-position: center; */
-}
-@media (max-width: 900px) {
+  background-repeat: no-repeat;
+  background-position: center;
+} */
+/* @media (max-width: 900px) {
   .category div {
     width: 48%;
   }
@@ -71,4 +96,4 @@
 .category div .btn:hover {
   background-color: white;
   color: black;
-}
+} */
