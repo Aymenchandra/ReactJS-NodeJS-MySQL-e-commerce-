@@ -1,4 +1,4 @@
-#### How to run locally
+## How to run locally
 
 ```
 Open 3 terminals
@@ -19,14 +19,14 @@ Open 3 terminals
     npm run start (run to initialize data)
 ```
 
-#### How to connect as admin
+## How to connect as admin
 
 Email : admin@gmail.com
 Password : 12345
 
-#### Features
-
-## Regular User
+## Features
+### Regular User
+```
 Fetch all categories
 Select product by category 
 Add to cart 
@@ -35,12 +35,14 @@ Pay with card
             card nubmer         CVV                  data
     Visa	4242424242424242	3 ranom digits	     Any date after today's date 
 Track Order history by user
-## Admin User
+```
+### Admin User
+```
 all of the above features
 add Product / Delete   
 Order history tracking for all users
-
-#### Technologies Used
+```
+## Technologies Used
 
 ```
 ReactJS on client side
