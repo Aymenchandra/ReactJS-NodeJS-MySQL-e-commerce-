@@ -14,20 +14,20 @@ const categories = [
     urlImage:"https://t4.ftcdn.net/jpg/03/64/41/07/360_F_364410756_Ev3WoDfNyxO9c9n4tYIsU5YBQWAP3UF8.jpg"
   },
   {
-    name: "homeandfurniture",
+    name: "Games",
     urlImage:"https://i.ebayimg.com/images/g/WmAAAOSwvstitzHr/s-l1200.jpg"
   },
   {
-    name: "Apparels",
+    name: "mens",
     urlImage:"https://t4.ftcdn.net/jpg/05/96/62/65/360_F_596626503_jrzjZNYStDexiWxQFqO7oCh6M8PdMlJs.jpg"
   },
   {
     name: "books",
-    urlImage:"https://cdn2.momjunction.com/wp-content/uploads/2015/08/21EnjoyableIndoorGamesForKids-1-624x702.jpg"
+    urlImage:"https://assets.teenvogue.com/photos/5e6bffbbdee1770008c6d9bd/16:9/w_2560%2Cc_limit/GettyImages-577674005.jpg"
   },
   {
     name: "kids",
-    urlImage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPGSA6jkCQWYbKDgoM520SENukL4hZ9lJYeQ&usqp=CAU"
+    urlImage:"https://cdn2.momjunction.com/wp-content/uploads/2015/08/21EnjoyableIndoorGamesForKids-1-624x702.jpg"
   }
 ]
 for(let i=0; i<categories.length; ++i) {
@@ -92,8 +92,8 @@ for(let i=0; i<electronics.length; ++i) {
   })
 }
 
-// Homeandfurniture Data
-const homeandfurniture = [
+// Games Data
+const Games = [
   {
     title: "Artesia SCFP-856 MDF (Medium Density Fiber) Wall Shelf  (Number of Shelves - 6, Yellow)",
     imageUrl: "https://rukminim1.flixcart.com/image/416/416/k3yrte80/rack-shelf/g/n/t/dattachbkyellow1-xylm-original-imaffsahp2eh8dzd.jpeg?q=70",
@@ -137,17 +137,17 @@ const homeandfurniture = [
     categoryId: 2
   }
 ]
-for(let i=0; i<homeandfurniture.length; ++i) {
+for(let i=0; i<Games.length; ++i) {
   axios({
     method: 'post',
     url: 'http://localhost:4000/addProduct',
-    data: homeandfurniture[i],
+    data: Games[i],
     'Content-Type': 'application/json'
   })
 }
 
-// Apparels Data
-const Apparels = [
+// mens Data
+const mens = [
   {
     title: "United Colors of Benetton Men Solid Casual Button Down Shirt",
     imageUrl: "https://rukminim1.flixcart.com/image/880/1056/k0flmkw0/shirt/y/c/k/m-18a5db19u008i-united-colors-of-benetton-original-imafk7jy5pcfdbm8.jpeg?q=50",
@@ -191,11 +191,11 @@ const Apparels = [
     categoryId: 3
   }
 ]
-for(let i=0; i<Apparels.length; ++i) {
+for(let i=0; i<mens.length; ++i) {
   axios({
     method: 'post',
     url: 'http://localhost:4000/addProduct',
-    data: Apparels[i],
+    data: mens[i],
     'Content-Type': 'application/json'
   })
 }

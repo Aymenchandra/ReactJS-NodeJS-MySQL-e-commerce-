@@ -37,6 +37,7 @@ class Addpr extends Component {
         const form = new FormData()
         form.append('file', this.file);
         form.append('upload_preset', 'lkffra40');
+        
         axios.post("https://api.cloudinary.com/v1_1/dcscoeeoo/image/upload",form)
         .then(async (result)=>{
             const product = {
@@ -44,7 +45,7 @@ class Addpr extends Component {
                 imageUrl: result.data.secure_url,
                 Price: this.state.prprice,
                 Desc: this.state.prdesc,
-                category: this.state.prcategory
+                categoryId: this.state.prcategory
             }
             await axios({
                 method: 'post',
@@ -129,13 +130,12 @@ class Addpr extends Component {
                                 name="prcategory"
                                 onChange={this.handleChange}
                             >
-                                <option value="random">Product Category</option>
-                                <option value="electronics">Electronics</option>
-                                <option value="Apparels">Men's Wear</option>
-                                <option value="kids">Kids's Wear</option>
-                                <option value="homeandfurniture">Home and Furniture</option>
-                                <option value="books">Books</option>
-                                <option value="footwear">Foot Wear</option>
+                                <option value="">Product Category</option>
+                                <option value="1">Electronics</option>
+                                <option value="2">Games</option>
+                                <option value="3">Men's Wear</option>
+                                <option value="4">Books</option>
+                                <option value="5">Kids's Wear</option>
                             </select>
                             {formErrors.prcategory.length > 0 && (
                                 <span className="errorMessage">{formErrors.prcategory}</span>
