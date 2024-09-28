@@ -1,3 +1,11 @@
+# E-comemrce
+
+Website: [Demo](https://drive.google.com/file/d/1rsNqVJYZ0Q70PyScDniyHbVo9ijVJzA7/view?usp=sharing)
+
+[E-commerce] is an application to purshace product online.
+
+![E-commerce](./home.png)
+
 ## How to run locally
 
 ```

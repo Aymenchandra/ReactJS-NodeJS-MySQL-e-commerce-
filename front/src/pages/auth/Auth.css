@@ -15,7 +15,7 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #258ea6;
+  background-color: #e5e8ec;
 }
 
 .form-wrapper {
@@ -49,6 +49,12 @@ code {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+.logo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 label {
   font-size: 0.8em;
   margin-bottom: 0.25em;
@@ -120,7 +126,7 @@ input.error {
 }
 
 .createAccount button {
-  background-color: #519e8a;
+  background-color: #db5115;
   color: #fff;
   border: 2px solid #fff;
   width: 100%;
@@ -134,12 +140,12 @@ input.error {
 }
 
 .createAccount button:hover {
-  color: #519e8a;
+  color: #ef6226;
   background-color: #fff;
-  border: 2px solid #519e8a;
+  border: 2px solid #db5115;
 }
 
 .createAccount small {
-  color: #999;
+  color: #db5115;
   font-weight: lighter;
 }

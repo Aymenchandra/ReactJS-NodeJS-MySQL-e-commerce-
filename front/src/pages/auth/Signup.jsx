@@ -213,9 +213,9 @@ class Register extends Component {
                 <span className="errorMessage">{formErrors.address}</span>
               )}
             </div>
-            <div className="createAccount">
+            <div className="createAccount" >
               <button type="submit">Create Account</button>
-              <NavLink exact to="/">
+              <NavLink exact to="/" style={{ textDecoration: 'none' }}>
                 <small>Already Have an Account?</small>
               </NavLink>
             </div>

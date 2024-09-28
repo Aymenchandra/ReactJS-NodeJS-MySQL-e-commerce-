@@ -70,7 +70,7 @@ class Login extends Component {
     return (
       <div className="wrapper" >
         <div className="form-wrapper">
-          <h1 className="auth-h1">Login</h1>
+          <img className="logo" src="/logo.png" alt="logo" />
           <form onSubmit={this.handleSubmit} >
             <div className="email">
               <label htmlFor="email">Email</label>
@@ -104,7 +104,7 @@ class Login extends Component {
             <div className="createAccount">
               <button type="submit">Login</button>
 
-              <NavLink exact to="/signup">
+              <NavLink exact to="/signup" style={{ textDecoration: 'none' }}>
                 <small>Don't Have an Account?</small>
               </NavLink>
             </div>

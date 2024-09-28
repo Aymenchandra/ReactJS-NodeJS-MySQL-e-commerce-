@@ -27,7 +27,7 @@ const categories = [
   },
   {
     name: "kids",
-    urlImage:"https://cdn2.momjunction.com/wp-content/uploads/2015/08/21EnjoyableIndoorGamesForKids-1-624x702.jpg"
+    urlImage:"https://img.freepik.com/free-vector/four-happy-school-kids-jumping-with-backpacks-against-blue-sky_9975-108384.jpg"
   }
 ]
 for(let i=0; i<categories.length; ++i) {
